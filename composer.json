@@ -11,5 +11,8 @@
         "psr-4": {
             "Queue\\": "src/"
         }
+    },
+    "require-dev": {
+        "rector/rector": "^0.5.21"
     }
 }
