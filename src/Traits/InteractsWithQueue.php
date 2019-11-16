@@ -2,7 +2,7 @@
 
 namespace Queue\Traits;
 
-use Queue\Interfaces\Queue\Job as JobContract;
+use Illuminate\Contracts\Queue\Job as JobContract;
 
 trait InteractsWithQueue
 {
@@ -44,7 +44,7 @@ trait InteractsWithQueue
     public function fail($exception = null)
     {
         if ($this->job) {
-            FailingJob::handle($this->job->getConnectionName(), $this->job, $exception);
+            //FailingJob::handle($this->job->getConnectionName(), $this->job, $exception);
         }
     }
 
@@ -64,7 +64,6 @@ trait InteractsWithQueue
     /**
      * Set the base queue job instance.
      *
-     * @param  \Queue\Interfaces\Queue\Job  $job
      * @return $this
      */
     public function setJob(JobContract $job)

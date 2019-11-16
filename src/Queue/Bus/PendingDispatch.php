@@ -2,7 +2,7 @@
 
 namespace Queue\Queue\Bus;
 
-use Illuminate\Contracts\Bus\Dispatcher;
+use Queue\Interfaces\Contracts\Bus\Dispatcher;
 
 class PendingDispatch
 {
@@ -12,6 +12,13 @@ class PendingDispatch
      * @var mixed
      */
     protected $job;
+
+    /**
+     * Job handler.
+     *
+     * @var mixed
+     */
+    protected $handler;
 
     /**
      * Create a new pending job dispatch.
@@ -103,14 +110,31 @@ class PendingDispatch
     }
 
     /**
+     * Set the job handler
+     *
+     * @param mixed $handler
+     */
+    public function setHandle($handler)
+    {
+        $this->handler = $handler;
+    }
+
+    /**
      * Handle the object's destruction.
      *
      * @return void
      */
     public function __destruct()
     {
+        if($this->handler){
+            ($this->handler)($this->job);
+        }
         //TODO container to dispatch
-        app(Dispatcher::class)->dispatch($this->job);
+        if(function_exists("app")){
+            app(Dispatcher::class)->dispatch($this->job);
+            return;
+        }
+        throw new \Exception("No handler to deal job");
     }
 }
  
