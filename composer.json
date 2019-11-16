@@ -1,0 +1,15 @@
+{
+    "name": "queue/queue",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "zrb",
+            "email": "mrzhangrb@outlook.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Queue\\": "src/"
+        }
+    }
+}
