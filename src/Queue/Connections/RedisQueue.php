@@ -2,18 +2,16 @@
 
 namespace Queue\Queue\Connections;
 
-use Queue\Interfaces\Contracts\Redis\Factory as Redis;
 use Queue\Interfaces\Queue\Queue as QueueContract;
 use Queue\Queue\Queue;
 use Queue\Queue\Connections\RedisLuaScripts as LuaScripts;
-use Queue\Utils\Str;
+use Illuminate\Support\Str;
 
 class RedisQueue extends Queue implements QueueContract
 {
-        /**
+    /**
      * The Redis factory implementation.
      *
-     * @var \Queue\Interfaces\Contracts\Redis\Factory
      */
     protected $redis;
 
@@ -47,7 +45,7 @@ class RedisQueue extends Queue implements QueueContract
      * @param  int  $retryAfter
      * @return void
      */
-    public function __construct(Redis $redis, $default = 'default', $connection = null, $retryAfter = 60)
+    public function __construct($redis, $default = 'default', $connection = null, $retryAfter = 60)
     {
         $this->redis = $redis;
         $this->default = $default;

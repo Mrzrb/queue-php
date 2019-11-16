@@ -2,7 +2,10 @@
 
 namespace Queue\Queue\Bus;
 
+use Closure;
 use Queue\Interfaces\Queue\ShouldQueue;
+use Illuminate\Contracts\Queue\Queue;
+
 
 class Dispatcher 
 {
@@ -142,10 +145,6 @@ class Dispatcher
         $connection = $command->connection ?? null;
 
         $queue = call_user_func($this->queueResolver, $connection);
-
-        if (! $queue instanceof Queue) {
-            throw new RuntimeException('Queue resolver did not return a Queue implementation.');
-        }
 
         if (method_exists($command, 'queue')) {
             return $command->queue($queue, $command);
