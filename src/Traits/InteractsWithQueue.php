@@ -2,7 +2,7 @@
 
 namespace Queue\Traits;
 
-use Queue\Interfaces\Queue\Job as JobContract;
+use Illuminate\Contracts\Queue\Job as JobContract;
 
 trait InteractsWithQueue
 {
@@ -64,7 +64,6 @@ trait InteractsWithQueue
     /**
      * Set the base queue job instance.
      *
-     * @param  \Queue\Interfaces\Queue\Job  $job
      * @return $this
      */
     public function setJob(JobContract $job)

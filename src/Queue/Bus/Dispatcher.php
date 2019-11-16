@@ -4,10 +4,9 @@ namespace Queue\Queue\Bus;
 
 use Closure;
 use Queue\Interfaces\Queue\ShouldQueue;
-use Illuminate\Contracts\Queue\Queue;
+use Queue\Interfaces\Contracts\Bus\Dispatcher as QueueDispatcher;
 
-
-class Dispatcher 
+class Dispatcher implements QueueDispatcher
 {
     /**
      * The container implementation.

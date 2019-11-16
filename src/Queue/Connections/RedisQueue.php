@@ -6,6 +6,7 @@ use Queue\Interfaces\Queue\Queue as QueueContract;
 use Queue\Queue\Queue;
 use Queue\Queue\Connections\RedisLuaScripts as LuaScripts;
 use Illuminate\Support\Str;
+use Queue\Jobs\RedisJob;
 
 class RedisQueue extends Queue implements QueueContract
 {
