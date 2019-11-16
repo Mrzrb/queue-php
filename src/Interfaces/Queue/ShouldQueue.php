@@ -2,7 +2,7 @@
 
 namespace Queue\Interfaces\Queue;
 
-interface ShRRoldQueue
+interface ShouldQueue
 {
 
 }
