@@ -63,8 +63,11 @@ class CallQueuedHandler
                     $job->delete();
                 }
             });
+            $process->wait(false);
             $process->start();
         }catch(\Throwable $t){
+            $job->delete();
+        }finally{
             $job->delete();
         }
 
