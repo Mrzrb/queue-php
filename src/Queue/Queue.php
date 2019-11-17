@@ -203,7 +203,7 @@ abstract class Queue
      * @param  \Illuminate\Container\Container  $container
      * @return void
      */
-    public function setContainer(Container $container)
+    public function setContainer($container)
     {
         $this->container = $container;
     }
