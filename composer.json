@@ -17,6 +17,7 @@
     },
     "require": {
         "nesbot/carbon": "1.36.1",
-        "illuminate/redis": "~5.2.0"
+        "illuminate/redis": "~5.2.0",
+        "misterion/ko-process": "^0.5.3"
     }
 }
