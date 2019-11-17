@@ -11,6 +11,7 @@ use Queue\Queue\WorkerOptions;
 use Queue\QueueJob;
 
 
+
 $job = new QueueJob();
 $job->onQueue("default")->delay(1);
 

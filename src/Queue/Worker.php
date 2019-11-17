@@ -444,9 +444,9 @@ class Worker
      */
     protected function raiseAfterJobEvent($connectionName, $job)
     {
-        $this->events->dispatch(new Events\JobProcessed(
-            $connectionName, $job
-        ));
+        //$this->events->dispatch(new Events\JobProcessed(
+            //$connectionName, $job
+        //));
     }
 
     /**

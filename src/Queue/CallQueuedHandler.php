@@ -4,6 +4,7 @@ namespace Queue\Queue;
 
 use Illuminate\Contracts\Queue\Job;
 use Queue\Queue\Bus\Dispatcher;
+use Queue\Traits\InteractsWithQueue;
 
 class CallQueuedHandler
 {
@@ -40,17 +41,22 @@ class CallQueuedHandler
             return $this->handleModelNotFound($job, $e);
         }
 
-        $this->dispatcher->dispatchNow(
-            $command
-        );
-
-        if (! $job->hasFailed() && ! $job->isReleased()) {
-            $this->ensureNextJobInChainIsDispatched($command);
-        }
-
-        if (! $job->isDeletedOrReleased()) {
+        //$this->dispatcher->dispatchNow(
+            //$command
+        //);
+        try{
+            $command->handle();
+        }catch(\Throwable $t){
             $job->delete();
         }
+
+        //if (! $job->hasFailed() && ! $job->isReleased()) {
+            //$this->ensureNextJobInChainIsDispatched($command);
+        //}
+
+        //if (! $job->isDeletedOrReleased()) {
+            //$job->delete();
+        //}
     }
 
     /**

@@ -150,11 +150,8 @@ abstract class Job
 
     /**
      * Process an exception that caused the job to fail.
-     *
-     * @param  \Exception  $e
-     * @return void
      */
-    public function failed($e)
+    public function failed()
     {
         $this->markAsFailed();
 
@@ -163,7 +160,7 @@ abstract class Job
         list($class, $method) = JobName::parse($payload['job']);
 
         if (method_exists($this->instance = $this->resolve($class), 'failed')) {
-            $this->instance->failed($payload['data'], $e);
+            $this->instance->failed($payload['data']);
         }
     }
 
