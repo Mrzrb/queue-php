@@ -3,8 +3,7 @@
 namespace Queue\Queue;
 
 use Illuminate\Contracts\Queue\Job;
-use Ko\Process;
-use Ko\ProcessManager;
+use Jenner\SimpleFork\Process;
 use Queue\Queue\Bus\Dispatcher;
 use Queue\Traits\InteractsWithQueue;
 
@@ -26,12 +25,9 @@ class CallQueuedHandler
      *
      * @return void
      */
-    public function __construct(Dispatcher $dispatcher, ProcessManager $manager)
+    public function __construct(Dispatcher $dispatcher)
     {
         $this->dispatcher = $dispatcher;
-        $this->manager = $manager;
-        $this->manager->setProcessTitle("worker master");
-        $this->setMaxProcess();
     }
 
     public function setMaxProcess($num = 0)
@@ -60,15 +56,14 @@ class CallQueuedHandler
             //$command
         //);
         try{
-            if($this->manager->getProcessCount() <= $this->maxProcess || $this->maxProcess == 0){
-                $this->manager->fork(function(Process $p) use ($command, $job){
-                    try{
-                        $command->handle();
-                    }catch(\Throwable $t){
-                        $job->delete();
-                    }
-                });
-            }
+            $process = new Process(function() use ($command, $job) {
+                try{
+                    $command->handle();
+                }catch(\Throwable $e){
+                    $job->delete();
+                }
+            });
+            $process->start();
         }catch(\Throwable $t){
             $job->delete();
         }
